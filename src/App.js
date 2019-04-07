@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Link, Route } from 'react-router-dom';
+import { Switch, NavLink, Route } from 'react-router-dom';
 
 import './global.css';
 
@@ -12,11 +12,12 @@ export default class App extends Component {
     super(props);
 
     this.state = {
+      currentTab: 'user',
       routes: [
         {
           title: 'Usuarios',
           key: 'user',
-          link: '/',
+          link: '/user',
           component: UserPage
         },
         {
@@ -41,9 +42,9 @@ export default class App extends Component {
 
     return routes.map(route => {
       return (
-        <Link to={route.link} key={route.key}>
+        <NavLink to={route.link} activeStyle={activeStyle} key={route.key}>
           <div className="menu-item">{route.title}</div>
-        </Link>
+        </NavLink>
       );
     });
   }
@@ -72,4 +73,8 @@ export default class App extends Component {
       </div>
     );
   }
+};
+
+const activeStyle = {
+  background: 'gray',
 };
