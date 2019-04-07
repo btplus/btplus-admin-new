@@ -63,8 +63,10 @@ export default class App extends Component {
     return (
       <div className="layout">
         <div className="nav-menu">
+          <img style={imgStyle} src={'/src/assets/logo.jpg'}/>
           {this.renderMenuItems()}
         </div>
+
         <div className="page-container">
           <Switch>
             {this.renderRoutes()}
@@ -77,4 +79,9 @@ export default class App extends Component {
 
 const activeStyle = {
   background: '#426928',
+};
+
+const imgStyle = {
+  height: '25px',
+  paddingRight: '25px',
 };
