@@ -14,10 +14,10 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: #333;
+    background: #51834d;
     display: flex;
     align-items: center;
-    padding: 0 12px;
+    padding: 0 32px;
 }
 
 .nav-menu a .menu-item {
@@ -30,4 +30,25 @@
 
 .page-container {
     margin-top: 52px;
+    padding: 32px;
+}
+
+.table {
+  /*display: flex;*/
+  /*width:800px;*/
+  border-bottom: 1px solid gray;
+  line-height: 32px;
+}
+
+.form-lable{
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.form-button{
+    border-radius: 4px;
+    padding: 6px 12px;
+
 }

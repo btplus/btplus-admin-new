@@ -76,5 +76,5 @@ export default class App extends Component {
 };
 
 const activeStyle = {
-  background: 'gray',
+  background: '#426928',
 };

@@ -1,14 +1,17 @@
 
 import React, { PureComponent } from 'react';
+import { Button, Spinner, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+
 
 export default class ExamPage extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
           exams: [],
-          name:'',
-          category:'',
-          admission:'',
+          title:'',
+          status:'',
+          type:'',
+          loading: false,
         }
 
         this.fetchUser = this.fetchUser.bind(this);
@@ -18,10 +21,12 @@ export default class ExamPage extends PureComponent {
 
     async fetchUser() {
         try {
-            const userCall = await fetch('https://btplus.mybluemix.net/agenda');
+            this.setState({loading: true});
+            const userCall = await fetch('https://btplus.mybluemix.net/compromissos');
             const exams = await userCall.json();
-            this.setState({exams});
+            this.setState({exams,loading: false});
         } catch(err) {
+            this.setState({agenda,loading: false});
             console.log("Error fetching data-----------", err);
         }
     }
@@ -62,62 +67,72 @@ export default class ExamPage extends PureComponent {
     render() {
         const { exams, loading } = this.state;
         console.log("exams",exams);
+        if(!Array.isArray(exams)) return <span>Deu ruim =/</span>
 
         if(!loading) {
             return (
                 <div>
-                <Button name={"Listar"} onPress={this.fetchUser}/>
-                {exams.map(user=>
-                    <div style={divStyle} key={user._id}>
-                        <span>{user._id} </span>
-                        <span>{user.titulo} </span>
-                        <span>{user.status} </span>
-                        <span>{user.tipoCompromisso} </span>
-                        <span>{user.dataVencimento} </span>
-                    </div>
-                )}
-                ______________________________
                 <form>
-                <label>
+                <label className="form-lable">
                   Título:
                   <input
-                    name="name"
+                    name="title"
                     type="text"
                     checked={this.state.name}
                     onChange={this.handleInputChange} />
                 </label>
-                <br />
-                <label>
+                <label className="form-lable">
                   Status:
                   <input
-                    name="category"
+                    name="status"
                     type="text"
                     value={this.state.category}
                     onChange={this.handleInputChange} />
                 </label>
-                <label>
+                <label className="form-lable">
                   Tipo:
                   <input
-                    name="admission"
+                    name="type"
                     type="text"
                     value={this.state.admission}
                     onChange={this.handleInputChange} />
                 </label>
-                <input type="submit" onClick={this.handleSubmit} value="Criar" />
+                <input className="form-button" type="submit" onClick={this.handleSubmit} value="Criar" />
                 </form>
+                ______________________________
+                <br /><br /><Button color="success" onClick={this.fetchUser}>Listar</Button><br /><br />
+                { exams.length ?
+                  <TableRow style={{fontWeight: 'bold'}}info1={"ID"} info2={"Título"} info3={"Status"} info4={"Tipo"}  info5={"Vencimento"}/>
+                  : null
+                }
+                {exams.map(user=>
+                    <TableRow
+                        key={user._id}
+                        info1={user._id}
+                        info2={user.titulo}
+                        info3={user.status}
+                        info4={user.tipoCompromisso}
+                        info5={user.dataVencimento}
+                    />
+                )}
+
                 </div>
             )
         } else {
-            return <span>loading</span>
+            return <Spinner color="info" />
         }
     }
 }
 
-const Button = ({name, onPress}) => {
-    return <div onClick={onPress}>{name}</div>
-}
 
-const divStyle = {
-  display: 'flex',
-  justifyContent: 'space-between',
-};
+const TableRow = ({style={}, info1, info2, info3, info4, info5}) => {
+    return (
+        <div style={{...style, width: '940px'}} className="table">
+            <span style={{width: '300px', display: 'inline-block'}}>{info1}</span>
+            <span style={{width: '200px', display: 'inline-block'}}>{info2} </span>
+            <span style={{width: '90px', display: 'inline-block'}}>{info3}</span>
+            <span style={{width: '150px', display: 'inline-block'}}>{info4} </span>
+            <span style={{width: '150px', display: 'inline-block'}}>{info5} </span>
+            <br/>
+        </div>)
+}
