@@ -3,9 +3,9 @@ import { Switch, Link, Route } from 'react-router-dom';
 
 import './global.css';
 
-import HomePage from './pages/Home/index';
-import PageA from './pages/pageA/index';
-import PageB from './pages/pageB/index';
+import UserPage from './pages/User/index';
+import ExamPage from './pages/Exam/index';
+import SchedulePage from './pages/Schedule/index';
 
 export default class App extends Component {
   constructor(props) {
@@ -14,22 +14,22 @@ export default class App extends Component {
     this.state = {
       routes: [
         {
-          title: 'Home',
-          key: 'home',
+          title: 'Usuarios',
+          key: 'user',
           link: '/',
-          component: HomePage
+          component: UserPage
         },
         {
-          title: 'PageA',
-          key: 'page-a',
-          link: '/page-a',
-          component: PageA
+          title: 'Exames/Cursos',
+          key: 'exams',
+          link: '/exams',
+          component: ExamPage
         },
         {
-          title: 'PageB',
-          key: 'page-b',
-          link: '/page-b',
-          component: PageB
+          title: 'Agenda',
+          key: 'schedule',
+          link: '/schedule',
+          component: SchedulePage
         }
       ]
     };
