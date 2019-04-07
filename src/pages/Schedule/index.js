@@ -49,14 +49,13 @@ export default class SchedulePage extends PureComponent {
 
     render() {
         const { agenda, loading } = this.state;
-        console.log("agenda",agenda);
         if(!Array.isArray(agenda)) return <span>Deu ruim =/</span>
 
         if(!loading) {
             return (
                 <div>
                 <label className="form-lable">
-                  ID usuário:
+                  ID usuário(a):
                   <input
                     name="idUser"
                     type="text"
@@ -64,15 +63,15 @@ export default class SchedulePage extends PureComponent {
                 </label>
                 <br /><Button color="success" onClick={this.fetchUser}>Listar</Button><br /><br />
                 { agenda.length ?
-                  <TableRow style={{fontWeight: 'bold'}}info1={"ID User"} info2={"Id Evento"} info3={"Tipo"} info4={"Status"}  info5={"Horário"}/>
+                  <TableRow style={{fontWeight: 'bold'}}info1={"ID User"} info2={"Id Evento"} /*info3={"Tipo"}*/ info4={"Status"}  info5={"Horário"}/>
                   : null
                 }
                 { agenda.map(user=>
                     <TableRow
-                        key={user.idUsario}
-                        info1={user.idUsario}
+                        key={user.idUsuario}
+                        info1={user.idUsuario}
                         info2={user.idCompromisso}
-                        info3={user.tipo}
+                        // info3={user.tipo}
                         info4={user.status}
                         info5={user.horario}
                     />
@@ -87,12 +86,12 @@ export default class SchedulePage extends PureComponent {
 
 const TableRow = ({style={}, info1, info2, info3, info4, info5}) => {
     return (
-        <div style={{...style, width: '940px'}} className="table">
+        <div style={{...style, width: '950px'}} className="table">
             <span style={{width: '300px', display: 'inline-block'}}>{info1}</span>
-            <span style={{width: '200px', display: 'inline-block'}}>{info2} </span>
-            <span style={{width: '90px', display: 'inline-block'}}>{info3}</span>
-            <span style={{width: '150px', display: 'inline-block'}}>{info4} </span>
-            <span style={{width: '150px', display: 'inline-block'}}>{info5} </span>
+            <span style={{width: '300px', display: 'inline-block'}}>{info2} </span>
+            {/*<span style={{width: '90px', display: 'inline-block'}}>{info3}</span>*/}
+            <span style={{width: '100px', display: 'inline-block'}}>{info4} </span>
+            <span style={{width: '200px', display: 'inline-block'}}>{info5} </span>
             <br/>
         </div>)
 }

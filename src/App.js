@@ -15,7 +15,7 @@ export default class App extends Component {
       currentTab: 'user',
       routes: [
         {
-          title: 'Usuarios',
+          title: 'Usuários',
           key: 'user',
           link: '/user',
           component: UserPage

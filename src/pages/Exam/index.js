@@ -42,8 +42,10 @@ export default class ExamPage extends PureComponent {
     }
 
     async handleSubmit(event) {
-        const {name, category,admission} = this.state;
+        const {title, status,type} = this.state;
+        event.preventDefault();
         try {
+            this.setState({loading: true});
             const userCall = await fetch('https://btplus.mybluemix.net/compromissos', {
               method: 'POST',
               headers: {
@@ -51,22 +53,21 @@ export default class ExamPage extends PureComponent {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                nome: {name},
-                tipo: "USUARIO",
-                dataAdmissao: {admission},
+                titulo: title,
+                tipo: "COMPROMISSO",
+                tipoCompromisso: type,
+                status: status,
               })
             })
             const exams = await userCall.json();
-            // console.log("data",exams);
+            this.setState({loading: false});
         } catch(err) {
-            event.preventDefault();
             console.log("Error submiting data-----------", err);
         }
     }
 
     render() {
         const { exams, loading } = this.state;
-        console.log("exams",exams);
         if(!Array.isArray(exams)) return <span>Deu ruim =/</span>
 
         if(!loading) {
@@ -102,7 +103,7 @@ export default class ExamPage extends PureComponent {
                 ______________________________
                 <br /><br /><Button color="success" onClick={this.fetchUser}>Listar</Button><br /><br />
                 { exams.length ?
-                  <TableRow style={{fontWeight: 'bold'}}info1={"ID"} info2={"Título"} info3={"Status"} info4={"Tipo"}  info5={"Vencimento"}/>
+                  <TableRow style={{fontWeight: 'bold'}}info1={"ID"} info2={"Título"} info3={"Status"} info4={"Tipo"}/>
                   : null
                 }
                 {exams.map(user=>
@@ -112,7 +113,7 @@ export default class ExamPage extends PureComponent {
                         info2={user.titulo}
                         info3={user.status}
                         info4={user.tipoCompromisso}
-                        info5={user.dataVencimento}
+                        // info5={user.dataVencimento}
                     />
                 )}
 
@@ -124,15 +125,14 @@ export default class ExamPage extends PureComponent {
     }
 }
 
-
-const TableRow = ({style={}, info1, info2, info3, info4, info5}) => {
+const TableRow = ({style={}, info1, info2, info3, info4}) => {
     return (
-        <div style={{...style, width: '940px'}} className="table">
+        <div style={{...style, width: '800px'}} className="table">
             <span style={{width: '300px', display: 'inline-block'}}>{info1}</span>
             <span style={{width: '200px', display: 'inline-block'}}>{info2} </span>
             <span style={{width: '90px', display: 'inline-block'}}>{info3}</span>
             <span style={{width: '150px', display: 'inline-block'}}>{info4} </span>
-            <span style={{width: '150px', display: 'inline-block'}}>{info5} </span>
             <br/>
-        </div>)
+        </div>
+    )
 }

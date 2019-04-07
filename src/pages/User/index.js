@@ -45,6 +45,7 @@ export default class UserPage extends PureComponent {
         const {name, category,admission} = this.state;
         event.preventDefault();
         try {
+            this.setState({loading: true});
             const userCall = await fetch('https://btplus.mybluemix.net/usuarios', {
               method: 'POST',
               headers: {
@@ -52,22 +53,20 @@ export default class UserPage extends PureComponent {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                nome: {name},
+                nome: name,
                 tipo: "USUARIO",
-                dataAdmissao: {admission},
+                dataAdmissao: admission,
               })
             })
             const users = await userCall.json();
-            // console.log("data",users);
+            this.setState({loading: false});
         } catch(err) {
-            event.preventDefault();
             console.log("Error submiting data-----------", err);
         }
     }
 
     render() {
         const { users, loading } = this.state;
-        console.log("users",users);
         if(!Array.isArray(users)) return <span>Deu ruim =/</span>
 
         if(!loading) {
@@ -103,11 +102,11 @@ export default class UserPage extends PureComponent {
                 ______________________________
                 <br /><br /><Button color="success" onClick={this.fetchUser}>Listar</Button><br /><br />
                 { users.length ?
-                  <TableRow style={{fontWeight: 'bold'}}info1={"ID"} info2={"Nome"} info3={"Idade"} info4={"Data de Admissão"}/>
+                  <TableRow style={{fontWeight: 'bold'}}info1={"ID"} info2={"Nome"} info3={"Data de Admissão"}/>
                   : null
                 }
                 {users.map(user=>
-                    <TableRow key={user._id} info1={user._id} info2={user.nome} info3={user.idade} info4={user.dataAdmissao}/>
+                    <TableRow key={user._id} info1={user._id} info2={user.nome} info3={user.dataAdmissao}/>
                 )}
                 </div>
             )
@@ -117,13 +116,12 @@ export default class UserPage extends PureComponent {
     }
 }
 
-const TableRow = ({style={}, info1, info2, info3, info4}) => {
+const TableRow = ({style={}, info1, info2, info3}) => {
     return (
-        <div style={{...style, width: '750px'}} className="table">
-            <span style={{width: '300px', display: 'inline-block'}}>{info1}</span>
+        <div style={{...style, width: '700px'}} className="table">
+            <span style={{width: '320px', display: 'inline-block'}}>{info1}</span>
             <span style={{width: '200px', display: 'inline-block'}}>{info2} </span>
-            <span style={{width: '50px', display: 'inline-block'}}>{info3}</span>
-            <span style={{width: '150px', display: 'inline-block'}}>{info4} </span>
+            <span style={{width: '150px', display: 'inline-block'}}>{info3} </span>
             <br/>
         </div>)
 }
