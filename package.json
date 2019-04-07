@@ -1,0 +1,46 @@
+{
+  "name": "react-react-router-dom-simple-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+git@github.com:CoonJS/react-react-router-dom-simple-boilerplate.git"
+  },
+  "keywords": [
+    "React",
+    "React-router-dom",
+    "Boilerplate",
+    "webpack"
+  ],
+  "author": "babanov.js@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CoonJS/react-react-router-dom-simple-boilerplate/issues"
+  },
+  "homepage": "https://github.com/CoonJS/react-react-router-dom-simple-boilerplate/blob/master/README.md",
+  "dependencies": {
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^1.0.1",
+    "file-loader": "^2.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14"
+  }
+}
